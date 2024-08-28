@@ -1,7 +1,7 @@
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import { useState } from "react";
-import { doPostCreate } from "../../services/api";
 import Alert from "@mui/material/Alert/Alert";
+import { doPost } from "../../services/api";
 
 interface ModalCreateUserProps {
   onClose: () => void;
@@ -20,7 +20,7 @@ function ModalCreateUser({ onClose }: ModalCreateUserProps) {
   async function handleSubmit(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault();
     setLoadig(true);
-    const response = await doPostCreate("/user", { email, password: pass });
+    const response = await doPost("/user", { email, password: pass });
     console.log(response);
     if (response.success) {
       setSeverityAlert("success");

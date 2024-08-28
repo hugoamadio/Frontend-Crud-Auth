@@ -28,11 +28,10 @@ function Login() {
     setLoading(true);
     const response = await doPost(
       "/auth",
-      { email: email, password: pass },
-      ""
+      { email: email, password: pass }
     );
-    if (response.success) {
-      userContext?.setData({ email, token: response.token });
+    if (response.data.success) {
+      userContext?.setData({ email, token: response.data.token });
       navigate("/home");
     }
     setLoading(false);

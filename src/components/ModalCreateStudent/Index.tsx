@@ -3,7 +3,7 @@ import ButtonDefault from "../ButtonDefault/Index";
 import InputDefault from "../InputDefault/Index";
 import DivStyledStudent from "./Styled";
 import { Alert, CircularProgress } from "@mui/material";
-import { doPostCreateStudent } from "../../services/api";
+import { doPost } from "../../services/api";
 import { UserContext } from "../../contexts/UserContext";
 
 interface ModalCreateStudentProps {
@@ -21,7 +21,8 @@ function ModalCreateStudent({ onSuccess }: ModalCreateStudentProps) {
 
   async function handleClickCreateStudent() {
     setLoading(true);
-    const response = await doPostCreateStudent(
+    const response = await doPost(
+      "/student",
       { name, surname, cpf },
       `${usercontext?.data.token}`
     );
