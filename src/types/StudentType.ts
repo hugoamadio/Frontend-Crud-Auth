@@ -1,5 +1,5 @@
 interface StudentType{
-    id?: string
+    id: string
     name: string
     surname: string
     cpf: string
