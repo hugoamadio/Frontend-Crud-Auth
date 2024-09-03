@@ -15,9 +15,8 @@ async function doPost(url: string, data: any, token?: string) {
       auth = true;
       return { data: response.data, auth };
     }
-    return { success: false, msg: "User not logged"};
-  } catch (error) {
-  }
+    return { success: false, msg: "User not logged" };
+  } catch (error) {}
   return { success: false, msg: "Erro do post", auth };
 }
 
@@ -53,19 +52,19 @@ async function doDelete(url: string, id: string, token: string) {
   }
 }
 
-async function doPut(url: string, id: string, token: string){
-  let auth = false
-  try{
-    const response = await apiClient.put(`${url}/${id}`, {
-      headers: { Authorization: token}
-    })
-    if(response.status === 200){
-      auth = true
-      return { data: response.data, auth }
+async function doPut(url: string, id: string, data: any, token: string) {
+  let auth = false;
+  try {
+    const response = await apiClient.put(`${url}/${id}`, data, {
+      headers: { Authorization: token },
+    });
+    if (response.status === 200) {
+      auth = true;
+      return { data: response.data, auth };
     }
-    return { success: false, msg: "User not logged"}
-  } catch(error) {
-    return { success: false, msg: "erro doPut"}
+    return { success: false, msg: "User not logged" };
+  } catch (error) {
+    return { success: false, msg: "erro doPut" };
   }
 }
 

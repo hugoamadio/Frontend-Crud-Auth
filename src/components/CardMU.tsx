@@ -2,6 +2,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
 interface CardMUProps {
   id: string;
@@ -9,9 +10,10 @@ interface CardMUProps {
   surname: string;
   cpf: string;
   onDeleteFunction: () => void;
+  onUpdateFunction: () => void;
 }
 
-export default function CardMU({ id, name, surname, cpf, onDeleteFunction }: CardMUProps) {
+export default function CardMU({ id, name, surname, cpf, onDeleteFunction, onUpdateFunction }: CardMUProps) {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -28,6 +30,7 @@ export default function CardMU({ id, name, surname, cpf, onDeleteFunction }: Car
       </CardContent>
       <div style={{width: '100%', height: 'auto', display: 'flex', boxSizing: 'border-box', padding: "0px 13px"}}>
         <button className="button-inside-render" onClick={onDeleteFunction}><DeleteIcon/></button>
+        <button className="button-inside-render" onClick={onUpdateFunction}><ModeEditIcon/></button>
       </div>
     </Card>
   );

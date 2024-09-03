@@ -7,9 +7,10 @@ import { UserContext } from "../contexts/UserContext";
 interface RenderProps {
   studentList: StudentType[];
   reRender: () => void;
+  showUpdateModal: (id: string) => void;
 }
 
-function Render({ studentList, reRender }: RenderProps) {
+function Render({ studentList, reRender, showUpdateModal }: RenderProps) {
   const userContext = useContext(UserContext);
 
   async function deleteFunction(id: string) {
@@ -27,6 +28,10 @@ function Render({ studentList, reRender }: RenderProps) {
     }
   }
 
+  async function updateFunction(id: string){
+    showUpdateModal(id)
+  }
+
   return (
     <>
       {studentList.map((item: StudentType) => (
@@ -37,6 +42,7 @@ function Render({ studentList, reRender }: RenderProps) {
           surname={item.surname}
           cpf={item.cpf}
           onDeleteFunction={() => deleteFunction(item.id)}
+          onUpdateFunction={() => updateFunction(item.id)}
         />
       ))}
     </>

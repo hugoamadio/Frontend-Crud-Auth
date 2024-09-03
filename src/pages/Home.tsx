@@ -6,9 +6,12 @@ import { doGet } from "../services/api";
 import StudentType from "../types/StudentType";
 import Render from "../components/Render";
 import ModalCreateStudent from "../components/ModalCreateStudent/Index";
+import ModalUpdateStudent from "../components/ModalUpdateStudent/Index";
 
 function Home() {
   const [modalCreateStudent, setModalCreateStudent] = useState<boolean>(false);
+  const [modalUpdateStudent, setModalUpdateStudent] = useState<boolean>(false);
+  const [idUpdateStudent, setIdUpdateStudent] = useState<string>("")
   const [studentsList, setStudentsList] = useState<StudentType[]>([]);
   const [reRender, setReRender] = useState<boolean>(false);
 
@@ -25,22 +28,27 @@ function Home() {
     getStudents();
   }, [reRender]);
 
-  function onSuccess(){
-    setModalCreateStudent(!modalCreateStudent)
-    setReRender(!reRender)
+  function onSuccess() {
+    setModalCreateStudent(!modalCreateStudent);
+    setReRender(!reRender);
   }
 
   async function getStudents() {
     const response = await doGet("/student", `${userContext?.data.token}`);
-    console.log(response)
+    console.log(response);
     if (response?.auth) {
       setStudentsList(response.data.data);
     }
   }
 
+  function showUpdateModal(id: string){
+    setIdUpdateStudent(id)
+    setModalUpdateStudent(true)
+  }
+
   return (
     <>
-      <Header newStudent={() => setModalCreateStudent(true)}/>
+      <Header newStudent={() => setModalCreateStudent(true)} />
       <div
         style={{
           display: "flex",
@@ -57,11 +65,17 @@ function Home() {
         <Render
           reRender={() => setReRender(!reRender)}
           studentList={studentsList}
+          showUpdateModal={showUpdateModal}
         />
       </div>
-      {modalCreateStudent && (
-        <ModalCreateStudent
-          onSuccess={onSuccess}
+      {modalCreateStudent && <ModalCreateStudent onSuccess={onSuccess} />}
+      {modalUpdateStudent && idUpdateStudent && (
+        <ModalUpdateStudent 
+          onSuccess={() => {
+            setModalUpdateStudent(false);
+            setReRender(!reRender);
+          }} 
+          id={idUpdateStudent}
         />
       )}
     </>
