@@ -35,7 +35,6 @@ function Home() {
 
   async function getStudents() {
     const response = await doGet("/student", `${userContext?.data.token}`);
-    console.log(response);
     if (response?.auth) {
       setStudentsList(response.data.data);
     }
