@@ -11,7 +11,7 @@ import ModalUpdateStudent from "../components/ModalUpdateStudent/Index";
 function Home() {
   const [modalCreateStudent, setModalCreateStudent] = useState<boolean>(false);
   const [modalUpdateStudent, setModalUpdateStudent] = useState<boolean>(false);
-  const [idUpdateStudent, setIdUpdateStudent] = useState<string>("")
+  const [idUpdateStudent, setIdUpdateStudent] = useState<string>("");
   const [studentsList, setStudentsList] = useState<StudentType[]>([]);
   const [reRender, setReRender] = useState<boolean>(false);
 
@@ -41,9 +41,14 @@ function Home() {
     }
   }
 
-  function showUpdateModal(id: string){
-    setIdUpdateStudent(id)
-    setModalUpdateStudent(true)
+  function showUpdateModal(id: string) {
+    setIdUpdateStudent(id);
+    setModalUpdateStudent(true);
+  }
+
+  function closeModal() {
+    setModalCreateStudent(false);
+    setModalUpdateStudent(false);
   }
 
   return (
@@ -68,13 +73,16 @@ function Home() {
           showUpdateModal={showUpdateModal}
         />
       </div>
-      {modalCreateStudent && <ModalCreateStudent onSuccess={onSuccess} />}
+      {modalCreateStudent && (
+        <ModalCreateStudent onClose={closeModal} onSuccess={onSuccess} />
+      )}
       {modalUpdateStudent && idUpdateStudent && (
-        <ModalUpdateStudent 
+        <ModalUpdateStudent
+          onClose={closeModal}
           onSuccess={() => {
             setModalUpdateStudent(false);
             setReRender(!reRender);
-          }} 
+          }}
           id={idUpdateStudent}
         />
       )}

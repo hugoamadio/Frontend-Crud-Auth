@@ -7,10 +7,11 @@ import { doPost } from "../../services/api";
 import { UserContext } from "../../contexts/UserContext";
 
 interface ModalCreateStudentProps {
+  onClose: () => void;
   onSuccess: () => void;
 }
 
-function ModalCreateStudent({ onSuccess }: ModalCreateStudentProps) {
+function ModalCreateStudent({ onSuccess , onClose}: ModalCreateStudentProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [alert, setAlert] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
@@ -90,6 +91,8 @@ function ModalCreateStudent({ onSuccess }: ModalCreateStudentProps) {
             onchange={(ev) => setCpf(ev.target.value)}
           />
         </div>
+        <div style={{display: 'flex', gap: '30px'}}>
+        <ButtonDefault onClickFunction={onClose}>Fechar</ButtonDefault>
         {loading ? (
           <CircularProgress />
         ) : (
@@ -98,6 +101,7 @@ function ModalCreateStudent({ onSuccess }: ModalCreateStudentProps) {
           </ButtonDefault>
         )}
         {alert ? <Alert severity="error">Ops, algo deu errado...</Alert> : ""}
+        </div>
       </DivStyledStudent>
     </div>
   );

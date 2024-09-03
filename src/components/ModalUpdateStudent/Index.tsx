@@ -8,10 +8,15 @@ import { UserContext } from "../../contexts/UserContext";
 
 interface ModalUpdateStudentProps {
   onSuccess: () => void;
+  onClose: () => void;
   id: string;
 }
 
-function ModalUpdateStudent({ onSuccess, id }: ModalUpdateStudentProps) {
+function ModalUpdateStudent({
+  onClose,
+  onSuccess,
+  id,
+}: ModalUpdateStudentProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [alert, setAlert] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
@@ -107,13 +112,16 @@ function ModalUpdateStudent({ onSuccess, id }: ModalUpdateStudentProps) {
             onchange={(ev) => setCpf(ev.target.value)}
           />
         </div>
-        {loading ? (
-          <CircularProgress />
-        ) : (
-          <ButtonDefault onClickFunction={handleClickUpdateStudent}>
-            Atualizar
-          </ButtonDefault>
-        )}
+        <div style={{ display: "flex", gap: "30px" }}>
+          <ButtonDefault onClickFunction={onClose}>Fechar</ButtonDefault>
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            <ButtonDefault onClickFunction={handleClickUpdateStudent}>
+              Atualizar
+            </ButtonDefault>
+          )}
+        </div>
         {alert ? <Alert severity="error">Ops, algo deu errado...</Alert> : ""}
       </DivStyledStudent>
     </div>
