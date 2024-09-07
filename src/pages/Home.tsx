@@ -22,7 +22,7 @@ function Home() {
     if (userContext?.data.email === "") {
       navigate("/");
     }
-  }, []);
+  }, [userContext]);
 
   useEffect(() => {
     getStudents();
