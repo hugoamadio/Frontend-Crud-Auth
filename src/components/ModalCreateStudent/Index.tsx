@@ -30,13 +30,14 @@ function ModalCreateStudent({ onSuccess , onClose}: ModalCreateStudentProps) {
     setName("");
     setSurname("");
     setCpf("");
-    if (response.success) {
+    if (response.data.success) {
       setLoading(false);
       onSuccess();
       return;
+    } else {
+      setLoading(false);
+      showAlert();
     }
-    setLoading(false);
-    showAlert();
   }
 
   function showAlert() {
